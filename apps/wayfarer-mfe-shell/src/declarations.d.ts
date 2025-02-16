@@ -1,11 +1,16 @@
 declare module "@wayfarer-mfe-home/Home" {
   const HomePage: React.ComponentType;
-  export default Home;
+  export default HomePage;
+}
+
+declare module "@wayfarer_mfe_nav/App" {
+  const Nav: React.ComponentType;
+  export default Nav;
 }
 
 declare module "@wayfarer-mfe-search/Search" {
   const SearchPage: React.ComponentType;
-  export default Search;
+  export default SearchPage;
 }
 
 declare module '*.svg' {
