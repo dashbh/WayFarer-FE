@@ -1,84 +1,136 @@
-# Turborepo starter
+# WayFarer Micro Frontend (MFE) Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+## 🚀 Overview
+WayFarer is a micro frontend (MFE) architecture-based project built with:
+- **React** (TypeScript) with **CRACO**
+- **TurboRepo** for monorepo management
+- **Webpack Module Federation** for sharing components between MFEs
 
-## Using this example
+Each MFE is a standalone React application, dynamically loaded into the host application (`wayfarer-mfe-shell`).
 
-Run the following command:
+---
 
+## 📂 Project Structure
+```
+wayfarer-mfe-monorepo/
+ ├── apps/
+ │   ├── wayfarer-mfe-shell/   # Host application
+ │   ├── wayfarer-mfe-home/    # Example MFE
+ │   ├── wayfarer-mfe-search/  # Example MFE
+ │   ├── wayfarer-mfe-nav/     # Example MFE
+ │
+ ├── generators/
+ │   ├── mfe.js               # Script to create new MFEs
+ │
+ ├── templates/
+ │   ├── mfe-template/        # Boilerplate for new MFEs
+ │
+ ├── package.json
+ ├── turbo.json               # TurboRepo config
+```
+
+---
+
+## 🛠️ How to Create a New Micro Frontend (MFE)
+Creating a new MFE is easy with our automated script! Follow these steps:
+
+### **Step 1: Run the Generator Command**
 ```sh
-npx create-turbo@latest
+npm run create-mfe <mfe-name>
+```
+Example:
+```sh
+npm run create-mfe search
+```
+This will generate a new MFE in `apps/wayfarer-mfe-search/` following the correct naming convention.
+
+### **Step 2: Change the Port (if needed)**
+To change the port for the new MFE, edit the craco.config.js file inside apps/wayfarer-mfe-search/:
+```sh
+module.exports = {
+  webpack: {
+    configure: (webpackConfig) => {
+      webpackConfig.output.publicPath = 'http://localhost:3001/';
+      ...
+    },
+  },
+  devServer: {
+    port: 3001,
+  },
+};
+
 ```
 
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+### **Step 3: Install Dependencies**
+Navigate to the newly created MFE directory and install dependencies:
+```sh
+cd apps/wayfarer-mfe-search
+npm install
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
+### **Step 4: Start the MFE Locally**
+Run the development server:
+```sh
+npm run start
 ```
-cd my-turborepo
-pnpm dev
+The new MFE should now be running locally.
+
+---
+
+## 🔗 Registering the MFE in the Host (`wayfarer-mfe-shell`)
+To make the new MFE accessible from the shell:
+
+- Step 1: Open `craco.config.js` and Add the new MFE under `remotes`:
+```js
+remotes: {
+  "wayfarer-mfe-search": "wayfarer-mfe-search@http://localhost:3002/remoteEntry.js"
+}
+```
+- Step 2: Use the new MFE in `wayfarer-mfe-shell`
+To use the new MFE inside the host application, update `apps/wayfarer-mfe-shell/src/App.tsx`:
+
+```tsx
+import React, { Suspense } from 'react';
+
+...
+const Search = React.lazy(() => import('@wayfarer-mfe-search/Search'));
+...
+
+const App = () => (
+  <div>
+    ...
+    <Suspense fallback={<div>Loading Search...</div>}>
+      <Search />
+    </Suspense>
+    ...
+    </Suspense>
+  </div>
+);
+
+export default App;
 ```
 
-### Remote Caching
+- Step 3: Update `apps/wayfarer-mfe-shell/src/declarations.d.ts`
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```tsx
+declare module "@wayfarer-mfe-search/Search" {
+  const SearchPage: React.ComponentType;
+  export default SearchPage;
+}
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+- Step 4:  Restart the shell to apply changes:
+```sh
+cd apps/wayfarer-mfe-shell
+npm run start
 ```
 
-## Useful Links
+---
 
-Learn more about the power of Turborepo:
+## 📜 License
+This project is licensed under the MIT License.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+---
+
+## 🤝 Contributing
+Feel free to create issues or submit pull requests to improve WayFarer! 😊
