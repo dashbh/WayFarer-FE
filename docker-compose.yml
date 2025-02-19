@@ -1,0 +1,60 @@
+services:
+  wayfarer_mfe_shell:
+    build:
+      context: .
+      dockerfile: ./apps/wayfarer_mfe_shell/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/wayfarer_mfe_shell:/usr/src/app/apps/wayfarer_mfe_shell
+      - /usr/src/app/node_modules
+    env_file:
+      - ./apps/wayfarer_mfe_shell/.env
+    depends_on:
+      - wayfarer_mfe_search
+      - wayfarer_mfe_home
+      - wayfarer_mfe_nav
+    restart: always
+    command: [ "npm", "run", "start", "--workspace=wayfarer_mfe_shell" ]
+
+  wayfarer_mfe_home:
+    build:
+      context: .
+      dockerfile: ./apps/wayfarer_mfe_home/Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./apps/wayfarer_mfe_home:/usr/src/app/apps/wayfarer_mfe_home
+      - /usr/src/app/node_modules
+    env_file:
+      - ./apps/wayfarer_mfe_home/.env
+    restart: always
+    command: [ "npm", "run", "start", "--workspace=wayfarer_mfe_home" ]
+
+  wayfarer_mfe_search:
+    build:
+      context: .
+      dockerfile: ./apps/wayfarer_mfe_search/Dockerfile
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./apps/wayfarer_mfe_search:/usr/src/app/apps/wayfarer_mfe_search
+      - /usr/src/app/node_modules
+    env_file:
+      - ./apps/wayfarer_mfe_search/.env
+    restart: always
+    command: [ "npm", "run", "start", "--workspace=wayfarer_mfe_search" ]
+
+  wayfarer_mfe_nav:
+    build:
+      context: .
+      dockerfile: ./apps/wayfarer_mfe_nav/Dockerfile
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./apps/wayfarer_mfe_nav:/usr/src/app/apps/wayfarer_mfe_nav
+      - /usr/src/app/node_modules
+    env_file:
+      - ./apps/wayfarer_mfe_nav/.env
+    restart: always
+    command: [ "npm", "run", "start", "--workspace=wayfarer_mfe_nav" ]

@@ -1,5 +1,5 @@
 {
-  "name": "wayfarer-mfe-search",
+  "name": "wayfarer_mfe_shell",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

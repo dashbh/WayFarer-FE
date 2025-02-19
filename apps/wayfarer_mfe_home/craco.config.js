@@ -3,13 +3,13 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 module.exports = {
   webpack: {
     configure: (webpackConfig) => {
-      webpackConfig.output.publicPath = 'http://localhost:3002/';
+      webpackConfig.output.publicPath = 'http://localhost:3001/';
       webpackConfig.plugins.push(
         new ModuleFederationPlugin({
-          name: 'wayfarerMfeSearch',
+          name: 'wayfarer_mfe_home',
           filename: 'remoteEntry.js',
           exposes: {
-            './Search': './src/Search',
+            './Home': './src/Home',
           },
           shared: {
             react: { singleton: true, eager: true },
@@ -22,6 +22,6 @@ module.exports = {
     },
   },
   devServer: {
-    port: 3002,
+    port: 3001,
   },
 };
