@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 
-const Home = React.lazy(() => import('@wayfarer-mfe-home/Home'));
-const Search = React.lazy(() => import('@wayfarer-mfe-search/Search'));
+const Home = React.lazy(() => import('@wayfarer_mfe_home/Home'));
+const Search = React.lazy(() => import('@wayfarer_mfe_search/Search'));
 const Nav = React.lazy(() => import('@wayfarer_mfe_nav/App'));
 
 const App = () => (

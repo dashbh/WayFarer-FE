@@ -6,7 +6,7 @@ WayFarer is a micro frontend (MFE) architecture-based project built with:
 - **TurboRepo** for monorepo management
 - **Webpack Module Federation** for sharing components between MFEs
 
-Each MFE is a standalone React application, dynamically loaded into the host application (`wayfarer-mfe-shell`).
+Each MFE is a standalone React application, dynamically loaded into the host application (`wayfarer_mfe_shell`).
 
 ---
 
@@ -14,10 +14,10 @@ Each MFE is a standalone React application, dynamically loaded into the host app
 ```
 wayfarer-mfe-monorepo/
  ├── apps/
- │   ├── wayfarer-mfe-shell/   # Host application
- │   ├── wayfarer-mfe-home/    # Example MFE
- │   ├── wayfarer-mfe-search/  # Example MFE
- │   ├── wayfarer-mfe-nav/     # Example MFE
+ │   ├── wayfarer_mfe_shell/   # Host application
+ │   ├── wayfarer_mfe_home/    # Example MFE
+ │   ├── wayfarer_mfe_search/  # Example MFE
+ │   ├── wayfarer_mfe_nav/     # Example MFE
  │
  ├── generators/
  │   ├── mfe.js               # Script to create new MFEs
@@ -42,10 +42,10 @@ Example:
 ```sh
 npm run create-mfe search
 ```
-This will generate a new MFE in `apps/wayfarer-mfe-search/` following the correct naming convention.
+This will generate a new MFE in `apps/wayfarer_mfe_search/` following the correct naming convention.
 
 ### **Step 2: Change the Port (if needed)**
-To change the port for the new MFE, edit the craco.config.js file inside apps/wayfarer-mfe-search/:
+To change the port for the new MFE, edit the craco.config.js file inside apps/wayfarer_mfe_search/:
 ```sh
 module.exports = {
   webpack: {
@@ -64,7 +64,7 @@ module.exports = {
 ### **Step 3: Install Dependencies**
 Navigate to the newly created MFE directory and install dependencies:
 ```sh
-cd apps/wayfarer-mfe-search
+cd apps/wayfarer_mfe_search
 npm install
 ```
 
@@ -77,23 +77,23 @@ The new MFE should now be running locally.
 
 ---
 
-## 🔗 Registering the MFE in the Host (`wayfarer-mfe-shell`)
+## 🔗 Registering the MFE in the Host (`wayfarer_mfe_shell`)
 To make the new MFE accessible from the shell:
 
 - Step 1: Open `craco.config.js` and Add the new MFE under `remotes`:
 ```js
 remotes: {
-  "wayfarer-mfe-search": "wayfarer-mfe-search@http://localhost:3002/remoteEntry.js"
+  "wayfarer_mfe_search": "wayfarer_mfe_search@http://localhost:3002/remoteEntry.js"
 }
 ```
-- Step 2: Use the new MFE in `wayfarer-mfe-shell`
-To use the new MFE inside the host application, update `apps/wayfarer-mfe-shell/src/App.tsx`:
+- Step 2: Use the new MFE in `wayfarer_mfe_shell`
+To use the new MFE inside the host application, update `apps/wayfarer_mfe_shell/src/App.tsx`:
 
 ```tsx
 import React, { Suspense } from 'react';
 
 ...
-const Search = React.lazy(() => import('@wayfarer-mfe-search/Search'));
+const Search = React.lazy(() => import('@wayfarer_mfe_search/Search'));
 ...
 
 const App = () => (
@@ -110,10 +110,10 @@ const App = () => (
 export default App;
 ```
 
-- Step 3: Update `apps/wayfarer-mfe-shell/src/declarations.d.ts`
+- Step 3: Update `apps/wayfarer_mfe_shell/src/declarations.d.ts`
 
 ```tsx
-declare module "@wayfarer-mfe-search/Search" {
+declare module "@wayfarer_mfe_search/Search" {
   const SearchPage: React.ComponentType;
   export default SearchPage;
 }
@@ -121,7 +121,7 @@ declare module "@wayfarer-mfe-search/Search" {
 
 - Step 4:  Restart the shell to apply changes:
 ```sh
-cd apps/wayfarer-mfe-shell
+cd apps/wayfarer_mfe_shell
 npm run start
 ```
 

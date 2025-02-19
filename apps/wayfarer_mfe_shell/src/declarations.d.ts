@@ -1,4 +1,4 @@
-declare module "@wayfarer-mfe-home/Home" {
+declare module "@wayfarer_mfe_home/Home" {
   const HomePage: React.ComponentType;
   export default HomePage;
 }
@@ -8,7 +8,7 @@ declare module "@wayfarer_mfe_nav/App" {
   export default Nav;
 }
 
-declare module "@wayfarer-mfe-search/Search" {
+declare module "@wayfarer_mfe_search/Search" {
   const SearchPage: React.ComponentType;
   export default SearchPage;
 }
