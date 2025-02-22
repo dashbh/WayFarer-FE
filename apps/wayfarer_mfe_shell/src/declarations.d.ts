@@ -3,9 +3,9 @@ declare module "@wayfarer_mfe_home/Home" {
   export default HomePage;
 }
 
-declare module "@wayfarer_mfe_nav/App" {
-  const Nav: React.ComponentType;
-  export default Nav;
+declare module "@wayfarer_mfe_nav/*" {
+  const App: React.ComponentType;
+  export default App;
 }
 
 declare module "@wayfarer_mfe_search/Search" {
