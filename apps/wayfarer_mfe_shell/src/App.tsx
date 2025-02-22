@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense } from 'react';
 
 const Home = React.lazy(() => import('@wayfarer_mfe_home/Home'));
 const Search = React.lazy(() => import('@wayfarer_mfe_search/Search'));
