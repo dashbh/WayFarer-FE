@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "es2015"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@wayfarer_mfe_*": ["apps/wayfarer_mfe_*/src"]
+    },
+  },
+  "exclude": ["node_modules", "**/*.js", "dist"],
+  "include": ["types/**/*.d.ts", "apps/**/*"],
+}
