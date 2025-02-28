@@ -33,6 +33,26 @@ wayfarer-mfe-monorepo/
 ```
 
 ---
+## Start the project
+```sh
+cd apps/wayfarer_mfe_shell
+npm i
+npm run start
+```
+
+---
 
 ## 🛠️ How to Create a New Micro Frontend (MFE)
 https://github.com/dashbh/WayFarer-Docs/blob/main/MFE.md
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🤝 Contributing
+
+Feel free to create issues or submit pull requests to improve WayFarer! 😊****
