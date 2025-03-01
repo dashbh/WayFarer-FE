@@ -1,20 +1,22 @@
 import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { routes } from './routes';
 
-const Home = React.lazy(() => import('@wayfarer_mfe_home/Home'));
-const Search = React.lazy(() => import('@wayfarer_mfe_search/Search'));
-const NavBar = React.lazy(() => import('@wayfarer_mfe_nav/NavBar'));
+const NavBar: any = React.lazy(() => import('@wayfarer_mfe_nav/NavBar'));
 
 const App = () => (
   <div>
-    <Suspense fallback={<div>Loading Nav...</div>}>
-      <NavBar />
-    </Suspense>
-    <Suspense fallback={<div>Loading Home...</div>}>
-      <Home />
-    </Suspense>
-    <Suspense fallback={<div>Loading Search...</div>}>
-      <Search />
-    </Suspense>
+    <Router>
+      <NavBar routes={routes} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          {routes.map(({ path, component }) => {
+            const Component = React.lazy(component);
+            return <Route key={path} path={path} element={<Component />} />;
+          })}
+        </Routes>
+      </Suspense>
+    </Router>
   </div>
 );
 
