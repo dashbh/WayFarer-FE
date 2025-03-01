@@ -9,7 +9,6 @@ module.exports = {
           name: 'wayfarer_mfe_nav',
           filename: 'remoteEntry.js',
           exposes: {
-            './App': './src/App',
             './NavBar': './src/components/navbar',
           },
           shared: {
