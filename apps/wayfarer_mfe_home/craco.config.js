@@ -9,7 +9,7 @@ module.exports = {
           name: 'wayfarer_mfe_home',
           filename: 'remoteEntry.js',
           exposes: {
-            './Home': './src/Home',
+            './Home': './src/pages/Home',
           },
           shared: {
             react: { singleton: true, eager: true },

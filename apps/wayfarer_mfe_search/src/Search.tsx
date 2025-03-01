@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Home: React.FC = () => {
+const Search: React.FC = () => {
   return (
     <div>
       <h1>Welcome to WayFarer MFE Search!</h1>
@@ -9,4 +9,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Search;
